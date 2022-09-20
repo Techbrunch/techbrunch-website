@@ -20,7 +20,8 @@ jenv local 1.7
 java -jar iis_shortname_scanner.jar URL
 ```
 
-{% embed url="https://github.com/irsdl/IIS-ShortName-Scanner" %}
+References:
 
-{% embed url="https://www.youtube.com/watch?v=HrJW6Y9kHC4" %}
+- https://github.com/irsdl/IIS-ShortName-Scanner
+- https://www.youtube.com/watch?v=HrJW6Y9kHC4
 

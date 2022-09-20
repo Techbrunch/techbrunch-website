@@ -1,3 +1,50 @@
 site_name: My Docs
+plugins:
+  - search
+  - social
+  - tags
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - git-authors
 theme:
   name: material
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - content.code.annotate
+    - header.autohide
+  font:
+    text: Roboto
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
+
+extra:
+  social:
+    - icon: fontawesome/brands/twitter 
+      link: https://twitter.com/techbrunchfr
+    - icon: fontawesome/brands/github 
+      link: https://github.com/Techbrunch
+
+repo_url: https://github.com/Techbrunch/techbrunch-website

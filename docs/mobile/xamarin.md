@@ -27,5 +27,7 @@ Read usage instructions here: [https://github.com/icsharpcode/ILSpy/tree/master/
 
 Source: [https://github.com/aerror2/ILSpy-For-MacOSX/issues/6](https://github.com/aerror2/ILSpy-For-MacOSX/issues/6)
 
-{% embed url="https://www.x41-dsec.de/security/news/working/research/2020/09/22/xamarin-dll-decompression/" %}
+References:
+
+- [Decompressing Xamarin DLLs](https://www.x41-dsec.de/security/news/working/research/2020/09/22/xamarin-dll-decompression/)
 

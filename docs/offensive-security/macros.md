@@ -3,10 +3,10 @@
 ## Tips
 
 * Save Word document as "Word 97-2004 Document .doc" to not have to use the "Word Macro-Enabled Document \(.docm\)
-* 
+
 ## Simple Download / Exec
 
-```text
+```vbnet
 Sub Auto_Open()
 
 Const ADTYPEBINARY = 1

@@ -12,9 +12,8 @@ pip3 install -U objection
 objection patchapk --source app-release.apk
 ```
 
-{% hint style="warning" %}
-You might need to use the flag `--skip-resources` if there is an error while rebuilding the APK.
-{% endhint %}
+!!! warning
+    You might need to use the flag `--skip-resources` if there is an error while rebuilding the APK.
 
 ### Explore APK
 
@@ -61,7 +60,7 @@ android hooking generate simple <class name>
 android intent launch_activity com.package.package.class.NameActivity
 ```
 
-### Hook return\_value
+### Hook return_value
 
 ```
 android hooking set return_value com.package.package.paywall.PayWallStorageImpl.retrievePayWallIsOp
@@ -74,31 +73,26 @@ en true
 objection patchapk -s UnCrackable-Level1.apk -c gadget -l root.js
 ```
 
-{% tabs %}
-{% tab title="gadget" %}
-{% code title="gadget" %}
-```javascript
-{
-  "interaction": {
-    "type": "script",
-    "path": "libfrida-gadget.script.so"
-  }
-}
-```
-{% endcode %}
-{% endtab %}
+=== "gadget"
 
-{% tab title="root.js" %}
-{% code title="root.js" %}
-```javascript
-Java.perform(function() {
-    var c = Java.use("sg.vantagepoint.a.c");
-    c.a.implementation = function(v) { return false; }
-    c.b.implementation = function(v) { return false; }
-    c.c.implementation = function(v) { return false; }
-})
-```
-{% endcode %}
-{% endtab %}
-{% endtabs %}
+    ```json
+    {
+      "interaction": {
+        "type": "script",
+        "path": "libfrida-gadget.script.so"
+      }
+    }
+    ```
+
+=== "root.js"
+
+    ```javascript
+    Java.perform(function() {
+        var c = Java.use("sg.vantagepoint.a.c");
+        c.a.implementation = function(v) { return false; }
+        c.b.implementation = function(v) { return false; }
+        c.c.implementation = function(v) { return false; }
+    })
+    ```
+
 

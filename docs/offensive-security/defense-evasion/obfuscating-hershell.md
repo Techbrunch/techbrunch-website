@@ -20,9 +20,8 @@ go get github.com/unixpickle/gobfuscate
 gobfuscate -outdir github.com/lesnuages/hershell ./out
 ```
 
-{% hint style="warning" %}
-You will have to set the `GOOS` and `GOARCH` before running **gobfuscate** since it's using the default build profile otherwise it will takes only the Linux source files.
-{% endhint %}
+!!! warning
+    You will have to set the `GOOS` and `GOARCH` before running **gobfuscate** since it's using the default build profile otherwise it will takes only the Linux source files.
 
 The Makefile also needs to be copied and edited:
 

@@ -15,9 +15,8 @@ unxz frida-server-12.X.X-android-x86.xz
 adb push frida-server-12.X.X-android-x86 /data/local/tmp
 ```
 
-{% hint style="warning" %}
-On a real device you will need to get the `android-arm` version
-{% endhint %}
+!!! warning
+     On a real device you will need to get the `android-arm` version
 
 ### Starting Frida Server
 
@@ -40,8 +39,7 @@ frida -U --codeshare sowdust/universal-android-ssl-pinning-bypass-2 --no-paus -f
 frida -U -l crack.js --no-paus -f com.package.package
 ```
 
-{% code title="crack.js" %}
-```javascript
+```javascript title="crack.js"
 Java.perform(function() {
     theClass = Java.use("com.package.package.paywall.PayWallStorageImpl");
     theClass.retrievePayWallIsOpen.implementation = function(v) {
@@ -49,4 +47,3 @@ Java.perform(function() {
     }
 })
 ```
-{% endcode %}

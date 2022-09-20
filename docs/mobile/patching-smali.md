@@ -4,7 +4,7 @@ Patching the method retrievePaywallIsOpen to always return true (`0x1`)
 
 ### Before
 
-```
+```smali
 .method public retrievePayWallIsOpen()Z
     .locals 3
 
@@ -25,7 +25,7 @@ Patching the method retrievePaywallIsOpen to always return true (`0x1`)
 
 ### After
 
-```
+```smali
 .method public retrievePayWallIsOpen()Z
     .locals 1
 

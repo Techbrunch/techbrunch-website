@@ -18,8 +18,7 @@ adb push ~/Downloads/hosts /system/etc/hosts
 adb reboot
 ```
 
-{% hint style="warning" %}
-The host file might be in a [different location](https://stackoverflow.com/a/47622017)
-{% endhint %}
+!!! warning
+    The host file might be in a [different location](https://stackoverflow.com/a/47622017)
 
 Source: [https://medium.com/code-procedure-and-rants/use-modified-hosts-file-on-android-emulator-4f29f5d12ac1](https://medium.com/code-procedure-and-rants/use-modified-hosts-file-on-android-emulator-4f29f5d12ac1)

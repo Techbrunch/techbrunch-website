@@ -63,9 +63,8 @@ chmod 644 /system/etc/security/cacerts/9a5ba575.0
 
 Source: [https://0x00sec.org/t/reversing-hackex-an-android-game/16243](https://0x00sec.org/t/reversing-hackex-an-android-game/16243)
 
-{% hint style="warning" %}
-I ran into the error `mount: '/system' not in /proc/mounts` (Nexus 6 API 28) and I fixed it by mounting the root (/) instead. Source: [adb remount fails - mount: 'system' not in /proc/mounts](https://stackoverflow.com/questions/55030788/adb-remount-fails-mount-system-not-in-proc-mounts). You migth have to start the emulator with [-writable-system](emulator.md).
-{% endhint %}
+!!! warning
+    I ran into the error `mount: '/system' not in /proc/mounts` (Nexus 6 API 28) and I fixed it by mounting the root (/) instead. Source: [adb remount fails - mount: 'system' not in /proc/mounts](https://stackoverflow.com/questions/55030788/adb-remount-fails-mount-system-not-in-proc-mounts). You migth have to start the emulator with [-writable-system](emulator.md).
 
 ### Enable debugging
 
