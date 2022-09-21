@@ -2,6 +2,7 @@ site_name: My Docs
 plugins:
   - search
   - social
+  - privacy
   - tags
   - git-revision-date-localized:
       enable_creation_date: true
