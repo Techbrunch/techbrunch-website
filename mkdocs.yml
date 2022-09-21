@@ -30,6 +30,8 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 markdown_extensions:
+  - toc:
+      permalink: true
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
