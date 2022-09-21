@@ -48,3 +48,4 @@ extra:
       link: https://github.com/Techbrunch
 
 repo_url: https://github.com/Techbrunch/techbrunch-website
+site_url: https://www.techbrunch.fr # required for social cards
