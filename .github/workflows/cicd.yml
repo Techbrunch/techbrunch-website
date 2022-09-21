@@ -3,6 +3,8 @@ on: push
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -13,9 +15,7 @@ jobs:
           key: ${{ github.ref }}
           path: .cache
       - run: sudo apt-get install libcairo2-dev libfreetype6-dev libffi-dev libjpeg-dev libpng-dev libz-dev
-      - run: pip install git+https://${GH_TOKEN}@github.com/squidfunk/mkdocs-material-insiders.git
+      - run: pip install git+https://${{ secrets.GH_TOKEN }}@github.com/squidfunk/mkdocs-material-insiders.git
       - run: pip install mkdocs-git-revision-date-localized-plugin
       - run: pip install mkdocs-git-committers-plugin-2
       - run: mkdocs gh-deploy --force --config-file mkdocs.insiders.yml
-env:
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
