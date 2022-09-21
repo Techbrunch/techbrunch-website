@@ -16,4 +16,5 @@ jobs:
       - run: pip install git+https://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@github.com/squidfunk/mkdocs-material-insiders.git
       - run: pip install mkdocs-git-revision-date-localized-plugin
       - run: pip install mkdocs-git-committers-plugin-2
+      - run: pip install pillow cairosvg
       - run: mkdocs gh-deploy --force --config-file mkdocs.insiders.yml
