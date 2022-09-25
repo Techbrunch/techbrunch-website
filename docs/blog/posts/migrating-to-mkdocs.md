@@ -1,3 +1,17 @@
+---
+draft: true 
+
+authors:
+  - techbrunch
+date: 2022-01-31
+---
+
+# Moving from GitBook to MkDocs
+
+<!-- more -->
+
+...
+
 https://squidfunk.github.io/mkdocs-material/alternatives/#gitbook
 
 brew install python

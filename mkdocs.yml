@@ -1,4 +1,4 @@
-site_name: My Docs
+site_name: Today I Learned
 plugins:
   - search
   - social
@@ -6,27 +6,38 @@ plugins:
   - tags
   - git-revision-date-localized:
       enable_creation_date: true
+      fallback_to_build_date: true
   - git-authors
+  - blog:
+      post_url_format: "{slug}"
+  - rss:
+      match_path: blog/posts/.*
+      date_from_meta:
+        as_creation: date
+      categories:
+        - categories
+        - tags
 theme:
   name: material
+  custom_dir: overrides
   icon:
     repo: fontawesome/brands/github
   features:
     - content.code.annotate
     - header.autohide
+    - announce.dismiss
   font:
     text: Roboto
   palette:
-    # Palette toggle for light mode
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
+    - scheme: default
+      primary: indigo
+      accent: indigo
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-
-    # Palette toggle for dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
+    - scheme: slate
+      primary: indigo
+      accent: indigo
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
@@ -42,7 +53,9 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true 
-
+nav:
+  - Blog:
+    - blog/index.md
 extra:
   social:
     - icon: fontawesome/brands/twitter 
@@ -50,5 +63,5 @@ extra:
     - icon: fontawesome/brands/github 
       link: https://github.com/Techbrunch
 
-repo_url: https://github.com/Techbrunch/techbrunch-website
+#repo_url: https://github.com/Techbrunch/techbrunch-website
 site_url: https://www.techbrunch.fr # required for social cards
