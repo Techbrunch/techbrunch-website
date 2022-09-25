@@ -16,7 +16,7 @@ The complete writeup for the H1-2006 CTF, including SSRF, Android Reverse Engine
 
 > We need your help! CEO @martenmickos needs to approve May bug bounty payments but he has lost his login details for BountyPay. Can you help retrieve them or make the payments for us?
 
-![https://twitter.com/Hacker0x01/status/1266454022124376064](h12006-ctf-writeup/h12006.jpg)
+![https://twitter.com/Hacker0x01/status/1266454022124376064](h12006-ctf-writeup/h12006.jpg){ loading=lazy }
 
 ## Passive Reconnaissance
 
