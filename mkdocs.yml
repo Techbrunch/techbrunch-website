@@ -52,7 +52,10 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.superfences
   - pymdownx.tabbed:
-      alternate_style: true 
+      alternate_style: true
+  - attr_list
+  - md_in_html
+
 nav:
   - Blog:
     - blog/index.md

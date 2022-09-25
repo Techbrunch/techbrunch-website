@@ -85,7 +85,7 @@ Here I skipped Aquatone since it appears that we only have 5 targets:
 
 ### bountypay.h1ctf.com
 
-![bountypay.h1ctf.com](<h12006-ctf-writeup/Screenshot 2020-06-03 at 09.19.48.png>)
+![bountypay.h1ctf.com](<h12006-ctf-writeup/Screenshot 2020-06-03 at 09.19.48.png>){ loading=lazy }
 
 bountypay.h1ctf.com has a dropdown menu that redirects to:
 
@@ -107,25 +107,25 @@ The other interesting thing we can note is that there is a reference to a Twitte
 
 On [@BountypayHQ](https://twitter.com/bountypayhq) profile page there are only 3 tweets including one with a reference to a new employee named Sandra:
 
-![https://twitter.com/bountypayhq](<h12006-ctf-writeup/Screenshot 2020-06-03 at 09.50.13.png>)
+![https://twitter.com/bountypayhq](<h12006-ctf-writeup/Screenshot 2020-06-03 at 09.50.13.png>){ loading=lazy }
 
 BountyPayHQ is only following 3 accounts and we can see that among them, is the new employee [SandraA76708114](https://twitter.com/SandraA76708114) aka Sandra Allison:
 
-![https://twitter.com/BountypayHQ/following](<h12006-ctf-writeup/Screenshot 2020-06-03 at 13.21.50.png>)
+![https://twitter.com/BountypayHQ/following](<h12006-ctf-writeup/Screenshot 2020-06-03 at 13.21.50.png>){ loading=lazy }
 
 If we look at her profile there is only [1 tweet](https://twitter.com/SandraA76708114/status/1258693001964068864) with a photo including what appears to be her employee ID: `STF:8FJ3KFISL3` which will be useful later on:
 
-![https://twitter.com/SandraA76708114/status/1258693001964068864/photo/1](<h12006-ctf-writeup/Screenshot 2020-06-03 at 13.23.06.png>)
+![https://twitter.com/SandraA76708114/status/1258693001964068864/photo/1](<h12006-ctf-writeup/Screenshot 2020-06-03 at 13.23.06.png>){ loading=lazy }
 
 ### app.bountypay.h1ctf.com
 
-![app.bountypay.h1ctf.com](<h12006-ctf-writeup/Screenshot 2020-06-03 at 09.12.39.png>)
+![app.bountypay.h1ctf.com](<h12006-ctf-writeup/Screenshot 2020-06-03 at 09.12.39.png>){ loading=lazy }
 
 On app.bountypay.h1ctf.com at first sight there is not much to see, there is only a login form which gives su an error when submitting invalid credentials.
 
 ### api.bountypay.h1ctf.com
 
-![api.bountypay.h1ctf.com](<h12006-ctf-writeup/Screenshot 2020-06-03 at 09.14.01.png>)
+![api.bountypay.h1ctf.com](<h12006-ctf-writeup/Screenshot 2020-06-03 at 09.14.01.png>){ loading=lazy }
 
 On the api the only thing out of the ordinary is a link that redirects to Google Search, we will come back to this later on.
 
@@ -135,13 +135,13 @@ On the api the only thing out of the ordinary is a link that redirects to Google
 
 ### staff.bountypay.h1ctf.com
 
-![staff.bountypay.h1ctf.com](<h12006-ctf-writeup/Screenshot 2020-06-03 at 09.14.52.png>)
+![staff.bountypay.h1ctf.com](<h12006-ctf-writeup/Screenshot 2020-06-03 at 09.14.52.png>){ loading=lazy }
 
 The staff application looks really similar to the app one. We are presented with a login form which throws an error with invalid credentials. Something we can note is the `template` parameter in the URL used to load the login template.
 
 ### software.bountypay.h1ctf.com
 
-![software.bountypay.h1ctf.com](<h12006-ctf-writeup/Screenshot 2020-06-03 at 09.16.58.png>)
+![software.bountypay.h1ctf.com](<h12006-ctf-writeup/Screenshot 2020-06-03 at 09.16.58.png>){ loading=lazy }
 
 The software subdomain appear to be only accessible from a specific IP.
 
@@ -215,7 +215,7 @@ Bingo ! The config file gives us the URL of the [repository](https://github.com/
 
 ### Souce code analysis
 
-![https://github.com/bounty-pay-code/](<h12006-ctf-writeup/Screenshot 2020-06-03 at 18.46.28.png>)
+![https://github.com/bounty-pay-code/](<h12006-ctf-writeup/Screenshot 2020-06-03 at 18.46.28.png>){ loading=lazy }
 
 The GitHub [account](https://github.com/bounty-pay-code) has only one repository with one [file](https://github.com/bounty-pay-code/request-logger/blob/master/logger.php) and one [commit](https://github.com/bounty-pay-code/request-logger/commits/master). We can see that the PHP file is logging request data into a file named `bp_web_trace.log`.
 
@@ -312,7 +312,7 @@ We can easily decode the base64 encoded data, I'm either using [Hackvertor](http
 
 The most interesting one is the third where we can see a username, password and 2FA challenge answer. If we try to login using the credentials found in the log file we get asked for a 10 characters password sent to the user's phone:
 
-![BountyPay - Login 2FA](<h12006-ctf-writeup/Screenshot 2020-06-03 at 19.10.39.png>)
+![BountyPay - Login 2FA](<h12006-ctf-writeup/Screenshot 2020-06-03 at 19.10.39.png>){ loading=lazy }
 
 The code found in the log file is invalid and bruteforcing the code is usually not the way to go in CTFs.&#x20;
 
@@ -363,7 +363,7 @@ Set-Cookie: token=eyJhY2NvdW50X2lkIjoiRjhnSGlxU2RwSyIsImhhc2giOiJkZTIzNWJmZmQyM2
 Transfer-Encoding: chunked
 ```
 
-![BountyPay | Dashboard](<h12006-ctf-writeup/Screenshot 2020-06-03 at 19.24.23.png>)
+![BountyPay | Dashboard](<h12006-ctf-writeup/Screenshot 2020-06-03 at 19.24.23.png>){ loading=lazy }
 
 !!! info
     We can note that the `challenge` parameter has been omitted in the log file, probably to make this step a little bit harder.
@@ -372,7 +372,7 @@ Transfer-Encoding: chunked
 
 Once we are logged in there is not much we can do except for loading transactions for our account.
 
-![BountyPay | Dashboard](<h12006-ctf-writeup/Screenshot 2020-06-03 at 19.24.23.png>)
+![BountyPay | Dashboard](<h12006-ctf-writeup/Screenshot 2020-06-03 at 19.24.23.png>){ loading=lazy }
 
 Loading the transactions:
 
@@ -539,11 +539,11 @@ The data now contains the HTML content of the software.bountypay.h1ctf index pag
 
 Since our SSRF is pretty limited (we can only do GET requests), the next logical step is to do more enumerations. For this we can use Burp Intruder with Hackvertor to dynamically base64 encode the payload.
 
-![Burp Intruder configuration](<h12006-ctf-writeup/Screenshot 2020-06-03 at 20.34.48.png>)
+![Burp Intruder configuration](<h12006-ctf-writeup/Screenshot 2020-06-03 at 20.34.48.png>){ loading=lazy }
 
 The "Directories - short" gives us some interesting results:
 
-![Intruder results](<h12006-ctf-writeup/Screenshot 2020-06-03 at 20.33.39.png>)
+![Intruder results](<h12006-ctf-writeup/Screenshot 2020-06-03 at 20.33.39.png>){ loading=lazy }
 
 It appears that there is an apk in the sources directory. The [apk](https://software.bountypay.h1ctf.com/uploads/BountyPay.apk) can be retrieved as there are no access control !
 
@@ -648,7 +648,7 @@ adb install BountyPay.apk
 
 The fist screen invites us to enter a username and a Twitter handle.
 
-![BountyPay](<h12006-ctf-writeup/Screenshot 2020-06-03 at 22.28.13.png>)
+![BountyPay](<h12006-ctf-writeup/Screenshot 2020-06-03 at 22.28.13.png>){ loading=lazy }
 
 ### PartOneActivity
 
@@ -727,7 +727,7 @@ Here again we are presented with a white screen with a button giving us two hint
 * Currently invisible.
 * Visible with the right params.
 
-![](<h12006-ctf-writeup/Screenshot 2020-06-03 at 22.49.08.png>)
+![](<h12006-ctf-writeup/Screenshot 2020-06-03 at 22.49.08.png>){ loading=lazy }
 
 This seems to imply that there is some invisible content that will be revealed if we send the right parameters. Let's look at the code.
 
@@ -796,7 +796,7 @@ Complete
 
 As expected we can now see an input field expecting a `Header value` and underneath an MD5 hash.
 
-![](<h12006-ctf-writeup/Screenshot 2020-06-03 at 22.50.32.png>)
+![](<h12006-ctf-writeup/Screenshot 2020-06-03 at 22.50.32.png>){ loading=lazy }
 
 Clicking on the submit button will trigger the `submitInfo` function. We can see that the header value should start with `X-` and if so the `correctHeader` function will be called which in turns will start PartThreeActivity.
 
@@ -897,7 +897,7 @@ adb shell am start -W -a android.intent.action.VIEW \
 
 We are then asked to provide a "leaked hash".
 
-![](<h12006-ctf-writeup/Screenshot 2020-06-03 at 22.52.38.png>)
+![](<h12006-ctf-writeup/Screenshot 2020-06-03 at 22.52.38.png>){ loading=lazy }
 
 Looking into the logs using `abd logcat` we can quickly see our leaked hash:
 
@@ -909,7 +909,7 @@ adb logcat | grep IS:
 
 When submitted we get the Congrats activity 🥳
 
-![CongratsActivity](<h12006-ctf-writeup/Screenshot 2020-06-03 at 22.24.57.png>)
+![CongratsActivity](<h12006-ctf-writeup/Screenshot 2020-06-03 at 22.24.57.png>){ loading=lazy }
 
 ## Know your staff
 
@@ -1056,23 +1056,23 @@ Once we are logged in we can see 4 differents tabs:
 * Profile
 * Logout
 
-![Homepage](<h12006-ctf-writeup/Screenshot 2020-06-03 at 23.33.11.png>)
+![Homepage](<h12006-ctf-writeup/Screenshot 2020-06-03 at 23.33.11.png>){ loading=lazy }
 
 There is only 1 ticket named "Welcome to BountyPay" from Admin to Sandra:
 
-![Support Tickets](<h12006-ctf-writeup/Screenshot 2020-06-03 at 23.33.29.png>)
+![Support Tickets](<h12006-ctf-writeup/Screenshot 2020-06-03 at 23.33.29.png>){ loading=lazy }
 
 There are not action possible on this screen since it appears that replies are currently disabled. Looking at the source code of the page, there is no reference to any endpoint that we could use to send a reply.
 
-![Ticket 3582](<h12006-ctf-writeup/Screenshot 2020-06-03 at 23.33.55.png>)
+![Ticket 3582](<h12006-ctf-writeup/Screenshot 2020-06-03 at 23.33.55.png>){ loading=lazy }
 
 On the profile page there are two settings that we can update, the profile name and the avatar.
 
-![Profile](<h12006-ctf-writeup/Screenshot 2020-06-03 at 23.34.19.png>)
+![Profile](<h12006-ctf-writeup/Screenshot 2020-06-03 at 23.34.19.png>){ loading=lazy }
 
 There is also a feature that is a bit hidden in the footer that allow us to report a page to the admins with a comment saying that the admin directory will be ignored.
 
-![Report Page](<h12006-ctf-writeup/Screenshot 2020-06-03 at 23.34.59.png>)
+![Report Page](<h12006-ctf-writeup/Screenshot 2020-06-03 at 23.34.59.png>){ loading=lazy }
 
 The last interesting thing is a bit of JavaScript:
 
@@ -1152,7 +1152,7 @@ profile_name=%3Cs%3Esandra%3C%2Fs%3E
 
 Here I'm trying to inject the followin payload: `<s>sandra</s>` but we can see that all special characters are filtered both on the profile page and on the tickets page.
 
-![](<h12006-ctf-writeup/Screenshot 2020-06-05 at 21.19.55.png>)
+![](<h12006-ctf-writeup/Screenshot 2020-06-05 at 21.19.55.png>){ loading=lazy }
 
 The request to change our avatar is working in a similar fashion. There are only three avatars available and when you switch the value `avartar1`, `avatar2` or `avatar3` is sent.
 
@@ -1228,7 +1228,7 @@ Luckily for us, repeating the parameter along with empty square brackets did the
 
 When we submit it using the report page feature we get back an updated cookie which let us acces the admin tab revealing the credentials of Marten Mickos !
 
-![Admin](<h12006-ctf-writeup/Screenshot 2020-06-04 at 09.33.42.png>)
+![Admin](<h12006-ctf-writeup/Screenshot 2020-06-04 at 09.33.42.png>){ loading=lazy }
 
 !!! info
     Something I have not mentioned is that for this part, every information (profile name and avatar) was actually stored in the cookie and there was no data persistance which might be confusing since this means that this attack could not work. Indeed the admin would have a different cookie without our information. Since everything was pointing in the same direction I tought this was probably simulated and that we could ignore it. This was later confirmed to me by [@adamtlangley](https://twitter.com/adamtlangley) the creator of the challenge.
@@ -1237,11 +1237,11 @@ When we submit it using the report page feature we get back an updated cookie wh
 
 Once we are logged in using Mårten Mickos credentials we can finally see some transactions to process for the month of may.
 
-![](<h12006-ctf-writeup/Screenshot 2020-06-04 at 09.52.31.png>)
+![](<h12006-ctf-writeup/Screenshot 2020-06-04 at 09.52.31.png>){ loading=lazy }
 
 Sadly clicking on pay does not show us the final flag but a new 2FA screen that cannot be as easily bypassed as the first one...
 
-![](<h12006-ctf-writeup/Screenshot 2020-06-04 at 09.52.59.png>)
+![](<h12006-ctf-writeup/Screenshot 2020-06-04 at 09.52.59.png>){ loading=lazy }
 
 Let's look at the request:
 
@@ -1292,7 +1292,7 @@ div.branding {
 
 ... and we only have 2 minutes to send the 2FA code.
 
-![](<h12006-ctf-writeup/Screenshot 2020-06-04 at 09.53.26.png>)
+![](<h12006-ctf-writeup/Screenshot 2020-06-04 at 09.53.26.png>){ loading=lazy }
 
 In the response we can see that the max length of the 2FA is seven characters:
 
@@ -1403,7 +1403,7 @@ app_style=<@urlencode_5>https://gist.githack.com/Techbrunch/82c3691e20a6c754a4f1
 
 This is how it looks like in Burp after we submit our payload (here I'm using [Taborator](https://portswigger.net/bappstore/c9c37e424a744aa08866652f63ee9e0f)):
 
-![](<h12006-ctf-writeup/Screenshot 2020-06-04 at 09.21.23.png>)
+![](<h12006-ctf-writeup/Screenshot 2020-06-04 at 09.21.23.png>){ loading=lazy }
 
 Based on the requests made to the collaborator we can easily extract the 2FA code.
 
@@ -1419,6 +1419,6 @@ Based on the requests made to the collaborator we can easily extract the 2FA cod
 
 For this request, the 2FA code is `TVu7Y1W` , once submitted we get the final FLAG !
 
-![](<h12006-ctf-writeup/Screenshot 2020-06-06 at 00.03.06.png>)
+![](<h12006-ctf-writeup/Screenshot 2020-06-06 at 00.03.06.png>){ loading=lazy }
 
 I hope you enjoyed reading this writeup, if so you can follow me on Twitter at [@TechbrunchFR](https://twitter.com/TechBrunchFR).
