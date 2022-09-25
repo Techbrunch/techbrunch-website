@@ -3,6 +3,8 @@ description: On August 9, the @GoogleVRP Twitter account as well as multiple Goo
 authors:
   - techbrunch
 date: 2022-09-25
+categories:
+  - WriteUp
 ---
 
 # Google VRP Teaser
