@@ -19,7 +19,7 @@ On August 9, the @GoogleVRP Twitter account as well as multiple Googlers started
 
 The tweet talks about a countdown and the video description and content mention:
 
-> Hope is not a strategy. [GOO.GLE/H4CK1NGG00GL3](GOO.GLE/H4CK1NGG00GL3)
+> Hope is not a strategy. [GOO.GLE/H4CK1NGG00GL3](https://GOO.GLE/H4CK1NGG00GL3)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/YfBqflOySB8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
