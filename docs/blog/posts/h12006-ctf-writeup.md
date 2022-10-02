@@ -3,6 +3,8 @@
 date: 2020-05-29
 authors:
   - techbrunch
+tags:
+  - CTF
 categories:
   - WriteUp
 description: The complete writeup for the H1-2006 CTF, including SSRF, Android Reverse Engineering, CSS injection and more.
