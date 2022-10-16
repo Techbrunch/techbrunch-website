@@ -54,6 +54,7 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
   - attr_list
+  - footnotes
   - md_in_html
 
 nav:
