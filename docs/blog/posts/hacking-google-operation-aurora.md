@@ -5,6 +5,7 @@ authors:
 date: 2022-10-17
 links:
   - blog/posts/google-vrp-teaser.md
+  - blog/posts/hacking-google-threat-analysis-group.md
 tags:
   - CTF
   - Web
@@ -62,11 +63,18 @@ My first attempt was to use a basic SQL injection[^sql-injection] to bypass the 
 </body>
 ```
 
-To make sure that I would be able to win I set the `AI Queen Cheats` to `No` and changed the `Thinking Time` to `1` (second ?). I then used [Next Chess Move](https://nextchessmove.com/) to stack all the odds in my favour.
+!!!info
+    In [challenge 3](blog/posts/hacking-google-threat-analysis-group.md) of EP001 we found a way to look at the source code which was already exploitable here. We can use it to see the code vulnerable to SQL injection:
 
+    ```php
+    <?php
 
-!!! info
-    I had to use Burp to be able to promote a piece and castling did not appear to be implemented.
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+      $query = sprintf("SELECT username FROM chess_ctf_admins WHERE username='%s' AND password='%s'", $_POST['username'], $_POST['password']);
+    }
+    ```
+
+To make sure that I would be able to win I set the `AI Queen Cheats` to `No` and changed the `Thinking Time` to `1` (second ?). I then used [Next Chess Move](https://nextchessmove.com/) to stack all the odds in my favour. It should be noted that I had to use Burp to be able to promote a piece and castling did not appear to be implemented.
 
 Winning the game resulted in the Flag being displayed:
 
