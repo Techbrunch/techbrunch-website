@@ -18,7 +18,7 @@ My writeup for EP000 of the Hacking Google CTF : Operation Aurora.
 
 <!-- more -->
 
-Before reading this writeup I suggest you first check the [accompanying video on Youtube](https://www.youtube.com/watch?v=przDcQe6n5o) from the HACKING GOOGLE series.
+Before reading this writeup I suggest you first check the [accompanying video on Youtube](https://www.youtube.com/watch?v=przDcQe6n5o) from the HACKING GOOGLE series. The [Hacking Google CTF](https://h4ck1ng.google/home) will be available for a while so maybe give it a try before reading this writeup ;)
 
 ## Challenge 01 - Hacker Chess
 
