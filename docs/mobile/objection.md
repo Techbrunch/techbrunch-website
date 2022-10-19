@@ -63,8 +63,7 @@ android intent launch_activity com.package.package.class.NameActivity
 ### Hook return_value
 
 ```
-android hooking set return_value com.package.package.paywall.PayWallStorageImpl.retrievePayWallIsOp
-en true
+android hooking set return_value com.package.package.paywall.PayWallStorageImpl.retrievePayWallIsOpen true
 ```
 
 ### Making a patch permanent
