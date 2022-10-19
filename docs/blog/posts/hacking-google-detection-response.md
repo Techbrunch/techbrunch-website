@@ -13,6 +13,10 @@ categories:
 
 # EP002 - Detection & Response
 
+My writeup for EP000 of the Hacking Google CTF : Operation Aurora.
+
+<!-- more -->
+
 ## Challenge 01 - Steganography
 
 > This image might look familiar. But where have you seen it before?
