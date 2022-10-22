@@ -56,6 +56,7 @@ markdown_extensions:
   - attr_list
   - footnotes
   - md_in_html
+  - pymdownx.keys
 
 nav:
   - Blog:

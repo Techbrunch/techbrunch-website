@@ -11,7 +11,7 @@ categories:
   - WriteUp
 ---
 
-# EP002 - Detection & Response
+# Hacking Google EP002 - Detection & Response
 
 My writeup for EP000 of the Hacking Google CTF : Operation Aurora.
 

@@ -1,12 +1,16 @@
 # Frida
 
-### Update Frida Tools (CLI)
+## Intro
+
+[Frida](https://github.com/frida) is a dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers.
+
+## Update Frida Tools (CLI)
 
 ```
 pip install -U frida-tools
 ```
 
-### Add Frida to device
+## Add Frida to device
 
 Download from: [https://github.com/frida/frida/releases](https://github.com/frida/frida/releases)
 
@@ -18,7 +22,7 @@ adb push frida-server-12.X.X-android-x86 /data/local/tmp
 !!! warning
      On a real device you will need to get the `android-arm` version
 
-### Starting Frida Server
+## Starting Frida Server
 
 ```
 adb root
@@ -27,13 +31,13 @@ cd /data/local/tmp
 ./frida-server-12.X.X-android-x86 &
 ```
 
-### Disable SSL pinning
+## Disable SSL pinning
 
 ```
 frida -U --codeshare sowdust/universal-android-ssl-pinning-bypass-2 --no-paus -f com.name.name
 ```
 
-### Hooking a Function
+## Hooking a Function
 
 ```
 frida -U -l crack.js --no-paus -f com.package.package

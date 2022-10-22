@@ -70,7 +70,7 @@ Source: [https://0x00sec.org/t/reversing-hackex-an-android-game/16243](https://0
 
 You’ll need to edit the `AndroidManifest.xml` generated file, adding the`android:debuggable="true"` attribute to its `application` XML node:
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.company.appname" 
                                                                      platformBuildVersionCode="24" 
