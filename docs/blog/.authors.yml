@@ -1,4 +1,5 @@
-techbrunch:
-  name: Aloïs Thévenot
-  description: Pentester
-  avatar: https://github.com/Techbrunch.png
+authors:
+  techbrunch:
+    name: Aloïs Thévenot
+    description: Pentester
+    avatar: https://github.com/Techbrunch.png
